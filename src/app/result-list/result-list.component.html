@@ -15,7 +15,7 @@
           <div>
             <img [src]="res.snippet.thumbnails['medium'].url" alt="Картинко" class="float-left mr-3"
                  title="{{res.snippet.title}}">
-            <p class="mb-2 vtitle"><!--<span class="title">Название: </span>--><a
+            <p class="mb-2 vtitle"><a
               [routerLink]="'/video/' + res.id.videoId">{{res.snippet.title}}</a></p>
             <p><span>Автор: </span>{{res.snippet.channelTitle}}</p>
             <p><span>Описание: </span>{{res.snippet.description}}</p>

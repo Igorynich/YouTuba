@@ -27,7 +27,7 @@ export class ResultListComponent implements OnInit, OnDestroy {
     this.route.queryParamMap.subscribe((params: ParamMap) => {
       console.log("Params: ", params);
       this.requestParams = {q: "", maxResults: "", type: "", part: ""};
-      //this.searchResponse = undefined;
+
       params.keys.map((val: string, index: number) => {
         this.requestParams[val] = params.get(val);
       });
@@ -75,7 +75,6 @@ export class ResultListComponent implements OnInit, OnDestroy {
     //console.log("Window Height", windowHeight);
     if (scrolled == (scrollHeight - windowHeight)) {
 
-      //console.log("Load Additional Staff");
       if ((this.searchResponse) && (this.searchResponse.nextPageToken)) {
         this.httpService.requestNextPage(this.searchString, this.searchResponse.nextPageToken).subscribe((data) => {
           //console.log("New Data: ", data);

@@ -28,14 +28,7 @@
         </div>
       </form>
     </div>
-    <div class="col-12">
-      <div *ngIf="0">
-        Request: {{ requestString }}<br>
-        <!--Response: {{response | json}}<br>-->
-        q: {{requestParams | json}}<br>
-      </div>
-      <!--<a routerLink="{{link}}">Видео</a>-->
-    </div>
+
   </div>
   <div class="row justify-content-center" *ngIf="1">
     <div class="col-12 text-center py-2 px-0 openFilters font-italic" (click)="showFilters=!showFilters">
@@ -197,6 +190,5 @@
 </div>
 
 <router-outlet></router-outlet>
-<!--<app-result-list [searchResults]="response"></app-result-list>-->
 
 

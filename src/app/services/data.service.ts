@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "./http.service";
 import {SearchRequestParams} from "../../classes/search-request-params";
-import {SearchResponse} from "../../classes/search-response";
+
 import {VideoRequestParams} from "../../classes/video-request-params";
 import {CachingService} from "./caching.service";
-import {VideoListResponse} from "../../classes/video-list-response";
-import {map} from 'rxjs/operators';
+
+
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
@@ -21,21 +21,6 @@ export class DataService {
 
 
     if (this.cache.hasValue(searchString)) {           //check for update here (etag changes all the time - so no sense in that)
-
-      /*this.httpService.makeYoutubeRequest<T>(searchString, this.cache.getEtag(searchString)).subscribe(value => {
-        console.log("Requesting with Etag ", this.cache.getEtag(searchString));
-        console.log("Data: ", value);
-        if (value !== null){
-          //response = this.httpService.makeYoutubeRequest<T>(searchString);
-          this.cache.store(searchString, value);
-          //this.getResponseData<T>(requestParams);
-        }
-
-      }, error1 => {
-        console.error("Error etag: ", error1);
-        response = this.cache.getValue(searchString);
-
-      });*/
 
       response = this.cache.getValue(searchString);
       console.log("<<<<Taken From DataService cache>>>>>", response);
@@ -64,7 +49,7 @@ export class DataService {
       if (params[currentItem]) {
         if (currentItem === "q") {
           return previousValue + and + currentItem + "=" + params[currentItem].trim().replace(/ +/g, "+");
-          //params[currentItem] = params[currentItem].trim().replace(/ +/g, "+");
+
         }
         return previousValue + and + currentItem + "=" + params[currentItem];
       }

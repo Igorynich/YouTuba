@@ -18,8 +18,7 @@ export class VideoResolver implements Resolve<VideoListResponse> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<VideoListResponse> | Promise<VideoListResponse> | VideoListResponse {
-    //let width = document.documentElement.clientWidth;
-    //console.log("Width = ", width);
+
     let reqParams: VideoRequestParams = {
       part: "snippet,contentDetails,statistics,player",
       id: ""
@@ -42,7 +41,7 @@ export class VideoResolver implements Resolve<VideoListResponse> {
     let respData = <VideoListResponse>this.dataService.getResponseData<VideoListResponse>(reqParams);
     if (!(respData instanceof Observable)) {
       if (respData.items.length) {
-        console.log("------Taken from CACHE----", respData);
+        //console.log("------Taken from CACHE----", respData);
         return respData;
       } else { // id not found
         this.router.navigate([this.redirectUrl]);
@@ -52,7 +51,7 @@ export class VideoResolver implements Resolve<VideoListResponse> {
     else {
       return (<Observable<VideoListResponse>>respData).take(1).map(video => {
         if (video.items.length) {
-          console.log("------Taken from YOUTUBE----", video);
+          //console.log("------Taken from YOUTUBE----", video);
           this.cache.store(reqString, video);
           return video;
         } else { // id not found
@@ -61,26 +60,6 @@ export class VideoResolver implements Resolve<VideoListResponse> {
         }
       });
     }
-
-    /*
-    if (this.dataService.getResponseData<VideoListResponse>(reqParams) instanceof Observable){
-      return (<Observable<VideoListResponse>>this.dataService.getResponseData<VideoListResponse>(reqParams)).take(1).map(video => {
-        if (video) {
-          return video;
-        } else { // id not found
-          this.router.navigate(['/lalala']);
-          return null;
-        }
-      });
-    } else {
-      if (<VideoListResponse>this.dataService.getResponseData<VideoListResponse>(reqParams)){
-        return <VideoListResponse>this.dataService.getResponseData<VideoListResponse>(reqParams);
-      } else { // id not found
-        this.router.navigate(['/lalala']);
-        return null;
-      }
-
-    }*/
 
   }
 

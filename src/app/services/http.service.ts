@@ -3,7 +3,6 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {SearchResponse} from "../../classes/search-response";
 import {catchError, retry} from 'rxjs/operators';
-import {VideoListResponse} from "../../classes/video-list-response";
 import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 
 
@@ -25,16 +24,7 @@ export class HttpService {
     return this.http.get<T>(this.youtubeApiLink + params + "&key=" + this.key).pipe(retry(3), catchError(this.handleError));
   }
 
-//remove
-  makeSearchReq(params: string): Observable<SearchResponse> {
-    return this.http.get<SearchResponse>("https://www.googleapis.com/youtube/v3/" + params + "&key=" + this.key).pipe(retry(3));
-  }
 
-  makeVideoReq(params: string): Observable<VideoListResponse> {
-    return this.http.get<VideoListResponse>("https://www.googleapis.com/youtube/v3/" + params + "&key=" + this.key).pipe(retry(3), catchError(this.handleError));
-  }
-
-//------------
   requestNextPage(params: string, nextPageToken: string): Observable<SearchResponse> {
     return this.http.get<SearchResponse>(this.youtubeApiLink + params + "&key=" + this.key + "&pageToken=" + nextPageToken).pipe(retry(3), catchError(this.handleError));
   }
