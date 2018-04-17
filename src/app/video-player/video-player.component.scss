@@ -1,0 +1,26 @@
+span{
+  font-size: 1.2rem;
+  font-style: italic;
+  color: crimson;
+
+}
+span.inner{
+  font-size: 1rem;
+  font-style: normal;
+  color: black;
+}
+.info{
+  border: gainsboro dashed 1px;
+}
+.player{
+  position:relative;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+/*iframe{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}*/

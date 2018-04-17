@@ -1,0 +1,30 @@
+<div class="container" id="scroller">
+
+  <div class="row mt-5" *ngIf="searchResponse">
+    <div class="col-12 text-center mb-3 title">
+      {{title}} (найдено: ~{{searchResponse.pageInfo.totalResults | number}} видео):
+    </div>
+
+    <div class="col-12 mb-3" *ngIf="0">
+      <button class="btn btn-dark" (click)="seeCache()">See Cache</button>
+    </div>
+
+    <div class="col-12">
+      <ol class="list-group">
+        <li class="list-group-item" *ngFor="let res of searchResponse.items">
+          <div>
+            <img [src]="res.snippet.thumbnails['medium'].url" alt="Картинко" class="float-left mr-3"
+                 title="{{res.snippet.title}}">
+            <p class="mb-2 vtitle"><!--<span class="title">Название: </span>--><a
+              [routerLink]="'/video/' + res.id.videoId">{{res.snippet.title}}</a></p>
+            <p><span>Автор: </span>{{res.snippet.channelTitle}}</p>
+            <p><span>Описание: </span>{{res.snippet.description}}</p>
+            <p><span>Опубликовано: </span>{{res.snippet.publishedAt | date}}</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+
+  </div>
+</div>

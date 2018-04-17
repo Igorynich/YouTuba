@@ -1,0 +1,202 @@
+<div class="container mb-4">
+  <div class="row">
+    <div class="col">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" id="breadcrumb">
+          <li class="breadcrumb-item active" aria-current="page">{{routeData['breadCrumb']}}</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <div class="row mt-5 mb-5">
+    <div class="col-12">
+      <form (submit)="onSubmit()" #searchForm="ngForm">
+        <div class="form-row justify-content-center">
+
+          <div class="col-8 font-italic">
+            <!--<label for="searchField" class="mr-3">Введите строку для поиска: </label>-->
+            <input type="search" id="searchField" #search class="form-control" [(ngModel)]="requestParams.q" name="q"
+                   placeholder="Введите строку для поиска" required>
+
+          </div>
+          <div class="col-2 col-lg-1">
+            <input type="submit" value="Искать" class="btn btn-primary" [disabled]="search.value.trim()==''">
+          </div>
+          <div class="col-2 col-lg-1">
+            <input type="button" value="Сброс" class="btn btn-danger" (click)="search.value=''">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-12">
+      <div *ngIf="0">
+        Request: {{ requestString }}<br>
+        <!--Response: {{response | json}}<br>-->
+        q: {{requestParams | json}}<br>
+      </div>
+      <!--<a routerLink="{{link}}">Видео</a>-->
+    </div>
+  </div>
+  <div class="row justify-content-center" *ngIf="1">
+    <div class="col-12 text-center py-2 px-0 openFilters font-italic" (click)="showFilters=!showFilters">
+      Дополнительные параметры
+    </div>
+  </div>
+
+  <div class="row py-3 justify-content-center filters" *ngIf="showFilters">
+
+    <div class="col-12">
+      <div class="col-9 text-center font-weight-bold"><p>Фильтровать:</p></div>
+      <div class="col-3 text-center"></div>
+    </div>
+
+
+    <div class="col-3">
+      <p class="">по разрешению видео:</p>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="videoDefinition-any" id="any" value="any"
+               [(ngModel)]="requestParams.videoDefinition" checked (change)="onSubmit()">
+        <label class="form-check-label" for="any">
+          Любое
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="videoDefinition-hd" id="hd" value="high"
+               [(ngModel)]="requestParams.videoDefinition" (change)="onSubmit()">
+        <label class="form-check-label" for="hd">
+          Высокое разрешение
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="videoDefinition-sd" id="sd" value="standard"
+               [(ngModel)]="requestParams.videoDefinition" (change)="onSubmit()">
+        <label class="form-check-label" for="sd">
+          Стандартное разрешение
+        </label>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <p class="">по длительности видео:</p>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="videoDuration-any" id="anyDuration" value="any"
+               [(ngModel)]="requestParams.videoDuration" checked (change)="onSubmit()">
+        <label class="form-check-label" for="anyDuration">
+          Любые
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="videoDuration-short" id="short" value="short"
+               [(ngModel)]="requestParams.videoDuration" (change)="onSubmit()">
+        <label class="form-check-label" for="short">
+          Короткие(<4мин)
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="videoDefinition-medium" id="medium" value="medium"
+               [(ngModel)]="requestParams.videoDuration" (change)="onSubmit()">
+        <label class="form-check-label" for="medium">
+          Средние(от 4 до 20мин)
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="videoDefinition-long" id="long" value="long"
+               [(ngModel)]="requestParams.videoDuration" (change)="onSubmit()">
+        <label class="form-check-label" for="long">
+          Длинные(>20мин)
+        </label>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <p class="">по дате:</p>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="date-lastHour" id="date-lastHour" value="1"
+               [(ngModel)]="publishedAfter" (change)="onSubmit()">
+        <label class="form-check-label" for="date-lastHour">
+          За посл. час
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="date-lastDay" id="date-lastDay" value="24"
+               [(ngModel)]="publishedAfter" (change)="onSubmit()">
+        <label class="form-check-label" for="date-lastDay">
+          За посл. сутки
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="date-lastWeek" id="date-lastWeek" value="168"
+               [(ngModel)]="publishedAfter" (change)="onSubmit()">
+        <label class="form-check-label" for="date-lastWeek">
+          За неделю
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="date-lastMonth" id="date-lastMonth" [value]="24*30"
+               [(ngModel)]="publishedAfter" (change)="onSubmit()">
+        <label class="form-check-label" for="date-lastMonth">
+          За месяц
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="date-lastYear" id="date-lastYear" [value]="24*30*12"
+               [(ngModel)]="publishedAfter" (change)="onSubmit()">
+        <label class="form-check-label" for="date-lastYear">
+          За год
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="date-allTime" id="date-allTime" value="0"
+               [(ngModel)]="publishedAfter" (change)="onSubmit()">
+        <label class="form-check-label" for="date-allTime">
+          За все время
+        </label>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <p class="font-weight-bold">Сортировать:</p>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="sort-date" id="sort-date" value="date"
+               [(ngModel)]="requestParams.order" (change)="onSubmit()">
+        <label class="form-check-label" for="sort-date">
+          По дате
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="sort-rating" id="sort-rating" value="rating"
+               [(ngModel)]="requestParams.order" (change)="onSubmit()">
+        <label class="form-check-label" for="sort-rating">
+          По рейтингу
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="sort-relevance" id="sort-relevance" value="relevance"
+               [(ngModel)]="requestParams.order" (change)="onSubmit()">
+        <label class="form-check-label" for="sort-relevance">
+          По релевантности
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="sort-title" id="sort-title" value="title"
+               [(ngModel)]="requestParams.order" (change)="onSubmit()">
+        <label class="form-check-label" for="sort-title">
+          По названию
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="sort-viewCount" id="sort-viewCount" value="viewCount"
+               [(ngModel)]="requestParams.order" (change)="onSubmit()">
+        <label class="form-check-label" for="sort-viewCount">
+          По количеству просмотров
+        </label>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<router-outlet></router-outlet>
+<!--<app-result-list [searchResults]="response"></app-result-list>-->
+
+
